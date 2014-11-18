@@ -11,6 +11,7 @@ CACHE_DIR = os.path.sep + os.path.join('tmp', 'imageServer')
 
 def __url(url):
     buf = None
+    # improvement - set timeout here for objects not found in fedora
     try:
         buf = urllib2.urlopen(url)
         return buf.read()
@@ -43,7 +44,7 @@ def fetchBuffer(url, cache=True):
         cached = __cachedBuffer(url)
         if cached:
             logging.debug('Cache hit for: %s' % url)                       
-            mime_type = imghdr.what("filename_placeholder",h=cached)            
+            mime_type = imghdr.what("filename_placeholder",h=cached)
             return_dict = {
                 "img_binary":cached,
                 "mime":mime_type

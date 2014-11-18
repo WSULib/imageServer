@@ -1,4 +1,4 @@
 imageServer
 ===========
 
-Python based, simple image server for WSUDOR platform
+Python based, simple image server for WSUDOR platform.
