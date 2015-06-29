@@ -22,10 +22,11 @@ def imageWork(getParams):
         imgURL = "http://127.0.0.1/fedora/objects/wayne:WSUDORThumbnails/datastreams/NoPhoto/content"        
 
     # Fetch a dictionary containing the string buffer representing the image, this is the image binary    
-    image_dict = fetch.fetchBuffer(imgURL)      
+    image_dict = fetch.fetchBuffer(imgURL) 
+
 
     # Determine mime and file extension with WSUAPI mimetypeDictionary
-    mimeDictURL = "http://digital.library.wayne.edu/WSUAPI-dev?functions[]=mimetypeDictionary&direction=DS2extension&PID={obj}&DS={ds}".format(obj=getParams['obj'][0],ds=getParams['ds'][0])
+    mimeDictURL = "http://127.0.0.1/WSUAPI?functions[]=mimetypeDictionary&direction=DS2extension&PID={obj}&DS={ds}".format(obj=getParams['obj'][0],ds=getParams['ds'][0])
     r = requests.get(mimeDictURL)
     r_dict = json.loads(r.content)
     image_dict['mime'] = r_dict['mimetypeDictionary']['input_mimetype']
