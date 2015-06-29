@@ -6,8 +6,10 @@ from twisted.internet.task import deferLater
 from twisted.web.server import NOT_DONE_YET
 from twisted.web import server, resource
 from twisted.python import log
+
 import logging
 import json
+import mimetypes
 
 # local
 from imageServer.imageServerMain import imageWork
@@ -30,12 +32,18 @@ class imageServerListener(resource.Resource):
 		image_dict = worker.imageServer(getParams=getParams)
 
 		if image_dict[0] == True:
+			
+			# generate filename
+			filename = getParams['obj'][0] + "_" + getParams['ds'][0]
+			extension = image_dict[1]['ext']
+
 			# response 
 			request.setHeader('Access-Control-Allow-Origin', '*')
 			request.setHeader('Access-Control-Allow-Methods', 'GET, POST')
 			request.setHeader('Access-Control-Allow-Headers','x-prototype-version,x-requested-with')
 			request.setHeader('Access-Control-Max-Age', 2520)                
-			request.setHeader('Content-Type', 'image/{mime}'.format(mime=image_dict[1]['mime']))
+			request.setHeader('Content-Type', '{mime}'.format(mime=image_dict[1]['mime']))
+			request.setHeader('Content-Disposition', 'inline; filename="{filename}{extension}"'.format(filename=filename, extension=extension))
 			request.setHeader('Connection', 'Close')
 			request.write(image_dict[1]['img_binary'])
 			request.finish()
@@ -87,7 +95,7 @@ if __name__ == '__main__':
 	       ____
 	  _[]_/____\__n_
 	 |_____.--.__()_|
-	 |LI  //# \\\    |
+	 |    //# \\\    |
 	 |    \\\__//    |
 	 |     '--'     |
 	 '--------------'

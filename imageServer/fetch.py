@@ -5,8 +5,6 @@ import os
 import logging
 import urllib2
 
-import imghdr
-
 CACHE_DIR = os.path.sep + os.path.join('tmp', 'imageServer')
 
 def __url(url):
@@ -44,10 +42,8 @@ def fetchBuffer(url, cache=True):
         cached = __cachedBuffer(url)
         if cached:
             logging.debug('Cache hit for: %s' % url)                       
-            mime_type = imghdr.what("filename_placeholder",h=cached)
             return_dict = {
-                "img_binary":cached,
-                "mime":mime_type
+                "img_binary":cached                
             }
             return return_dict            
         logging.debug('Cache miss for: %s' % url)
@@ -56,10 +52,8 @@ def fetchBuffer(url, cache=True):
     rc = __url(url)
     if cache:
         __cacheBuffer(url, rc)                        
-    mime_type = imghdr.what("filename_placeholder",h=rc)    
     return_dict = {
-                "img_binary":rc,
-                "mime":mime_type
+                "img_binary":rc                
             }
     return return_dict
     
