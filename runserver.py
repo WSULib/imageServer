@@ -27,6 +27,10 @@ class imageServerListener(resource.Resource):
 	def _delayedImageServer(self,request):
 		getParams = request.args
 
+		'''
+		It's possible this is where imageServer would have to detect IP ranges...
+		'''
+
 		# send to clerkRouter
 		worker = mainRouter()
 		image_dict = worker.imageServer(getParams=getParams)

@@ -15,11 +15,11 @@ def imageWork(getParams):
     if 'obj' in getParams and "ds" in getParams:  
 
         # come in through "front-door" with domain name to help enforce XACML policies (as server IP not included)     	
-        imgURL = "http://digital.library.wayne.edu/fedora/objects/"+getParams['obj'][0]+"/datastreams/"+getParams['ds'][0]+"/content"
+        imgURL = "http://127.0.0.1/fedora/objects/"+getParams['obj'][0]+"/datastreams/"+getParams['ds'][0]+"/content"
 
     else:
         print "No image URL found! Aborting imageServer API call."        
-        imgURL = "http://digital.library.wayne.edu/fedora/objects/wayne:WSUDORThumbnails/datastreams/NoPhoto/content"        
+        imgURL = "http://127.0.0.1/fedora/objects/wayne:WSUDORThumbnails/datastreams/NoPhoto/content"        
 
     # Fetch a dictionary containing the string buffer representing the image, this is the image binary    
     image_dict = fetch.fetchBuffer(imgURL)      

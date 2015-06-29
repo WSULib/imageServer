@@ -3,16 +3,24 @@ from __future__ import with_statement
 
 import os
 import logging
-import urllib2
+import urllib2, httplib, socket
 
 CACHE_DIR = os.path.sep + os.path.join('tmp', 'imageServer')
+
+import urllib2
+
 
 def __url(url):
     buf = None
     # improvement - set timeout here for objects not found in fedora
     try:
-        buf = urllib2.urlopen(url)
-        return buf.read()
+        req = urllib2.Request(url)
+        req.add_header('X-Forwarded-For', '141.217.54.97')
+        resp = urllib2.urlopen(req)        
+        return resp.read()
+        
+        # buf = opener.open(url)
+        # return buf.read()
     finally:
         if buf:
             buf.close()
