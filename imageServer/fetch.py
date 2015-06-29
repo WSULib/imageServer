@@ -14,7 +14,7 @@ def __url(url):
     buf = None
     # improvement - set timeout here for objects not found in fedora
     try:
-        buf = urllib2.openurl(url)
+        buf = urllib2.urlopen(url)
         return buf.read()
     finally:
         if buf:
